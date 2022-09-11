@@ -3,6 +3,8 @@ using OpenQA.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using System.Threading;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace Webshop_Automation.TestSetup
 {
@@ -39,7 +41,7 @@ namespace Webshop_Automation.TestSetup
         }
 
         //navigation using categories
-        public void navigateToCategory (string category, string subCategory = null)
+        public void navigateToCategory(string category, string? subCategory = null)
         {
             driver.FindElement(By.XPath($"//div[contains(@class, 'listbox')]//a[contains(text(),'{category}')]")).Click();
             if (subCategory != null)
@@ -48,17 +50,28 @@ namespace Webshop_Automation.TestSetup
             }
         }
 
+        //click item by itemName
+        public void ClickItem(string itemName)
+        {
+            ClickElementbyXpath($"//a[contains(text(),'{itemName}')]");
+        }
+
         //verify title text based on title type and name
         public bool findTitleText(string titleType, string titleName)
         {
-            if (driver.FindElement(By.XPath($"//{titleType}[contains(text(),'{titleName}')]")).Displayed==true)
+            try
+            {
+                driver.FindElement(By.XPath($"//{titleType}[contains(text(),'{titleName}')]"));
                 return true;
-            else
-                return false; 
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
 
-        //click checkbox in the webpage by web element id
-        public void ClickCheckboxbyID (string id)
+        //click element in the webpage by web element id
+        public void ClickElementbyID(string id)
         {
             driver.FindElement(By.Id($"{id}")).Click();
         }
@@ -66,7 +79,15 @@ namespace Webshop_Automation.TestSetup
         //enter text in the webpage by web element id
         public void EnterTextbyID(string id, string text)
         {
+            driver.FindElement(By.Id($"{id}")).Clear();
             driver.FindElement(By.Id($"{id}")).SendKeys(text);
+        }
+
+        //enter text in the webpage by web element id
+        public void EnterTextbyXpath(string Xpath, string text)
+        {
+            driver.FindElement(By.XPath($"{Xpath}")).Clear();
+            driver.FindElement(By.XPath($"{Xpath}")).SendKeys(text);
         }
 
         //Click webelement by Xpath
@@ -75,6 +96,28 @@ namespace Webshop_Automation.TestSetup
             driver.FindElement(By.XPath(xpath)).Click();
         }
 
+        public bool VerifyShoppingCartCount(int count)
+        {
+            driver.Navigate().Refresh();
+            if (driver.FindElement(By.XPath("//span[@class='cart-qty']")).ToString() == $"({count})")
+                return true;
+            else
+                return false;
+        }
+
+        public bool VerifyItemTotalPrice(string itemName, string price)
+        {
+            if (driver.FindElement(By.XPath($"//tr//a[contains(text(),'{itemName}')]/../..//span[@class='product-subtotal']")).ToString() == price.ToString())
+                return true;
+            else
+                return false;
+        }
+
+        public void SelectItemFromDropdown(string dropdownId,string itemName)
+        {
+            SelectElement drpDown = new SelectElement(driver.FindElement(By.Id(dropdownId)));
+            drpDown.SelectByText(itemName);
+        }
 
 
 

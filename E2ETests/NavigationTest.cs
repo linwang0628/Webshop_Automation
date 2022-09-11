@@ -5,6 +5,7 @@ namespace Webshop_Automation.E2ETests
 {
     public class NavigationTest : BaseTest
     {
+        //navigate to each of the page using navigation box
         [TestCase(TestName = "Navigate to all categories and sub categories")]
         public void NavigateToAllCategoriesandSubCategoriesTest()
         {
