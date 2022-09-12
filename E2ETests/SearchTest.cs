@@ -54,12 +54,16 @@ namespace Webshop_Automation.E2ETests
         }
 
         //using search bar to top right to search item
-        [TestCase(TestName = "Search item using search bar with existing and non-existing item")]
+        [TestCase(TestName = "Search item using search bar")]
         public void SearchItemUsingSearchBarTest()
         {
             OpenHomePage();
             SearchinSearchBar("empty");
             Assert.AreEqual(true, findTitleText("strong", "No products were found that matched your criteria."));
+            SearchinSearchBar("a");
+            Assert.AreEqual(true, findTitleText("strong", "Search term minimum length is 3 characters"));
+            SearchinSearchBar("");
+            DismissAlertWarning();
             SearchinSearchBar("TCP Coaching day");
             Assert.AreEqual(true, findTitleText("a", "TCP Coaching day"));
         }

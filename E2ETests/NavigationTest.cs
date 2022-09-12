@@ -6,33 +6,64 @@ namespace Webshop_Automation.E2ETests
     public class NavigationTest : BaseTest
     {
         //navigate to each of the page using navigation box
-        [TestCase(TestName = "Navigate to all categories and sub categories")]
+        [TestCase(TestName = "Navigate using navigation box")]
         public void NavigateToAllCategoriesandSubCategoriesTest()
         {
             OpenHomePage();
-            navigateToCategory("Books");
+            NavigateToCategory("Books");
             Assert.AreEqual(true, findTitleText("h1", "Books"));
-            navigateToCategory("Computers");
+            NavigateToCategory("Computers");
             Assert.AreEqual(true, findTitleText("h1", "Computers"));
-            navigateToCategory("Computers", "Desktops");
+            NavigateToCategory("Computers", "Desktops");
             Assert.AreEqual(true, findTitleText("h1", "Desktops"));
-            navigateToCategory("Computers", "Notebooks");
+            NavigateToCategory("Computers", "Notebooks");
             Assert.AreEqual(true, findTitleText("h1", "Notebooks"));
-            navigateToCategory("Computers", "Accessories");
+            NavigateToCategory("Computers", "Accessories");
             Assert.AreEqual(true, findTitleText("h1", "Accessories"));
-            navigateToCategory("Electronics");
+            NavigateToCategory("Electronics");
             Assert.AreEqual(true, findTitleText("h1", "Electronics"));
-            navigateToCategory("Electronics", "Camera, photo");
+            NavigateToCategory("Electronics", "Camera, photo");
             Assert.AreEqual(true, findTitleText("h1", "Camera, photo"));
-            navigateToCategory("Electronics", "Cell phones");
+            NavigateToCategory("Electronics", "Cell phones");
             Assert.AreEqual(true, findTitleText("h1", "Cell phones"));
-            navigateToCategory("Apparel & Shoes");
+            NavigateToCategory("Apparel & Shoes");
             Assert.AreEqual(true, findTitleText("h1", "Apparel & Shoes"));
-            navigateToCategory("Digital downloads");
+            NavigateToCategory("Digital downloads");
             Assert.AreEqual(true, findTitleText("h1", "Digital downloads"));
-            navigateToCategory("Jewelry");
+            NavigateToCategory("Jewelry");
             Assert.AreEqual(true, findTitleText("h1", "Jewelry"));
-            navigateToCategory("Gift Cards");
+            NavigateToCategory("Gift Cards");
+            Assert.AreEqual(true, findTitleText("h1", "Gift Cards"));
+        }
+
+        //navigate to each of the page using navigation bar
+        [TestCase(TestName = "Navigate using navigation bar")]
+        public void NavigateToAllCategoriesandSubCategoriesUsingNavBarTest()
+        {
+            OpenHomePage();
+            NavigateToCategoryUsingNavBar("Books");
+            Assert.AreEqual(true, findTitleText("h1", "Books"));
+            NavigateToCategoryUsingNavBar("Computers");
+            Assert.AreEqual(true, findTitleText("h1", "Computers"));
+            NavigateToCategoryUsingNavBar("Computers", "Desktops");
+            Assert.AreEqual(true, findTitleText("h1", "Desktops"));
+            NavigateToCategoryUsingNavBar("Computers", "Notebooks");
+            Assert.AreEqual(true, findTitleText("h1", "Notebooks"));
+            NavigateToCategoryUsingNavBar("Computers", "Accessories");
+            Assert.AreEqual(true, findTitleText("h1", "Accessories"));
+            NavigateToCategoryUsingNavBar("Electronics");
+            Assert.AreEqual(true, findTitleText("h1", "Electronics"));
+            NavigateToCategoryUsingNavBar("Electronics", "Camera, photo");
+            Assert.AreEqual(true, findTitleText("h1", "Camera, photo"));
+            NavigateToCategoryUsingNavBar("Electronics", "Cell phones");
+            Assert.AreEqual(true, findTitleText("h1", "Cell phones"));
+            NavigateToCategoryUsingNavBar("Apparel & Shoes");
+            Assert.AreEqual(true, findTitleText("h1", "Apparel & Shoes"));
+            NavigateToCategoryUsingNavBar("Digital downloads");
+            Assert.AreEqual(true, findTitleText("h1", "Digital downloads"));
+            NavigateToCategoryUsingNavBar("Jewelry");
+            Assert.AreEqual(true, findTitleText("h1", "Jewelry"));
+            NavigateToCategoryUsingNavBar("Gift Cards");
             Assert.AreEqual(true, findTitleText("h1", "Gift Cards"));
         }
 

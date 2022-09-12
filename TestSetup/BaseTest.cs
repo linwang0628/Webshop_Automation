@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 using System;
+using OpenQA.Selenium.Interactions;
 
 namespace Webshop_Automation.TestSetup
 {
@@ -40,14 +41,28 @@ namespace Webshop_Automation.TestSetup
             driver.Navigate().GoToUrl(homepageUrl);
         }
 
-        //navigation using categories
-        public void navigateToCategory(string category, string? subCategory = null)
+        //navigation using navigation box
+        public void NavigateToCategory(string category, string? subCategory = null)
         {
             driver.FindElement(By.XPath($"//div[contains(@class, 'listbox')]//a[contains(text(),'{category}')]")).Click();
             if (subCategory != null)
             {
                 driver.FindElement(By.XPath($"//div[contains(@class, 'listbox')]//a[contains(text(),'{subCategory}')]")).Click();
             }
+        }
+
+        //navigation using navigation bar
+        public void NavigateToCategoryUsingNavBar(string category, string? subCategory = null)
+        {
+            Actions action = new Actions(driver);
+            IWebElement mainCategory = driver.FindElement(By.XPath($"//div[contains(@class, 'header-menu')]//a[contains(text(),'{category}')]"));
+            IWebElement subCategoryElement = driver.FindElement(By.XPath($"//div[contains(@class, 'header-menu')]//a[contains(text(),'{subCategory}')]"));
+            if (subCategory != null)
+            {
+                action.MoveToElement(mainCategory).MoveToElement(subCategoryElement).Click().Perform();
+            }
+            else
+                mainCategory.Click();
         }
 
         //click item by itemName
@@ -90,12 +105,14 @@ namespace Webshop_Automation.TestSetup
             driver.FindElement(By.XPath($"{Xpath}")).SendKeys(text);
         }
 
-        //Click webelement by Xpath
+        //click webelement by Xpath
         public void ClickElementbyXpath(string xpath)
         {
             driver.FindElement(By.XPath(xpath)).Click();
         }
 
+
+        //check shopping cart count
         public bool VerifyShoppingCartCount(int count)
         {
             driver.Navigate().Refresh();
@@ -105,6 +122,8 @@ namespace Webshop_Automation.TestSetup
                 return false;
         }
 
+
+        //check price for the item purchased
         public bool VerifyItemTotalPrice(string itemName, string price)
         {
             if (driver.FindElement(By.XPath($"//tr//a[contains(text(),'{itemName}')]/../..//span[@class='product-subtotal']")).ToString() == price.ToString())
@@ -113,10 +132,17 @@ namespace Webshop_Automation.TestSetup
                 return false;
         }
 
+
+        //select from from dropdown menu
         public void SelectItemFromDropdown(string dropdownId,string itemName)
         {
             SelectElement drpDown = new SelectElement(driver.FindElement(By.Id(dropdownId)));
             drpDown.SelectByText(itemName);
+        }
+
+        public void DismissAlertWarning()
+        {
+            driver.SwitchTo().Alert().Accept();
         }
 
 

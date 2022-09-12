@@ -43,21 +43,21 @@ namespace Webshop_Automation.E2ETests
         public void SearchItemUsingSearchBarTest()
         {
             OpenHomePage();
-            navigateToCategory("Computers", "Desktops");
+            NavigateToCategory("Computers", "Desktops");
             ClickItem("Build your own cheap computer");//test add item to shopping cart
             AddItemToShoppingCart();
             VerifyShoppingCartCount(1);//verify item added
-            navigateToCategory("Computers", "Accessories");
+            NavigateToCategory("Computers", "Accessories");
             ClickItem("TCP Coaching day");//test add item with other requirements, should have warning and not added to cart
             AddItemToShoppingCart();
             waitForDelay(500);
             findTitleText("p", "This product requires the following product is added to the cart: TCP Instructor Led Training");
             VerifyShoppingCartCount(1);//verify item not added
-            navigateToCategory("Computers", "Accessories");
+            NavigateToCategory("Computers", "Accessories");
             ClickItem("TCP Instructor Led Training");
             AddItemToShoppingCart();
             VerifyShoppingCartCount(2);//verify item added
-            navigateToCategory("Computers", "Accessories");
+            NavigateToCategory("Computers", "Accessories");
             ClickItem("TCP Coaching day");
             AddItemToShoppingCart();
             VerifyShoppingCartCount(3);//verify item added
